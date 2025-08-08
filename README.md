@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+### Project Motive (Why This Project Exists)
+Democratize chemistry education in Bangladesh (SSC, HSC, Admission level)
+Provide structured, smart learning resources (PDFs, YouTube, Notes)
+Enable real-time testing with anti-cheat and performance tracking
+Create a community-driven Q&A environment (like StackOverflow for students)
+Offer teachers/admins full control over content and exams
+Build a centralized portal for both students and admins with intuitive UI/UX
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Admin Side
+Dashboard analytics for student activity, exams, and content
+Manage educational resources (Class → Paper → Chapter → Content)
+Create and manage exams with detailed question input
+View and moderate student questions and answers (blogs)
+View all students, their profiles, and exam performances
 
-## Available Scripts
+### Student Side Features
+Personalized dashboard (class, upcoming exams, doubts)
+Read-only access to resources, filtered by class
+Participate in exams with smart anti-cheat mechanisms
+Ask questions and contribute to the blog/discussion board
+View past exam results with answer breakdown and explanations
+View/edit their profile info
 
-In the project directory, you can run:
+### UI/UX + Frontend (React + Tailwind)
+Design clean responsive layouts (Admin & Student portals)
+Implement tabbed and accordion-based navigation (Class > Paper > Chapter)
+Create custom components: <ResourceCard>, <PDFViewer>, <YouTubeEmbed>, etc.
+Handle form inputs (Exams, Questions, Blogs)
 
-### `npm start`
+### Backend (Node.js + Express)
+Build RESTful APIs for users, resources, exams, blogs, results
+Implement logic for tab-switch detection, exam resume control
+Connect to MongoDB (use schemas from the design)
+Integrate Firebase Auth for role-based access
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Database (MongoDB)
+Set up 8 collections: User, ClassPaper, Resource, Exam, Question, Result, Blog, Comment
+Maintain relationships between collections (e.g., Resource linked to Chapters)
+Optimize for read-heavy access (e.g., blog reads, content views)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Auth & Storage
+Use Firebase Authentication for login/signup (email/password)
+Use Cloudinary or Firebase Storage for storing PDFs/images
+Ensure secure file access (read-only for students, editable for admin)
