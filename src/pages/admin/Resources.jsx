@@ -36,7 +36,7 @@ export default function Resources() {
 
       <div className="grid grid-cols-4 gap-4">
         {/* Left Panel (Class → Paper → Chapter) */}
-        <div className="col-span-1 bg-background p-4 rounded border shadow">
+        <div className="col-span-1 bg-white p-4 rounded border shadow">
           <h2 className="font-semibold mb-2">Navigation</h2>
           <div className="space-y-2">
             <select className="w-full p-2 border rounded">
@@ -59,7 +59,7 @@ export default function Resources() {
         </div>
 
         {/* Right Panel (Resources for selected chapter) */}
-        <div className="col-span-3 border bg-background p-4 rounded shadow">
+        <div className="col-span-3 border bg-white p-4 rounded shadow">
           <h2 className="font-semibold mb-2">Resources in Chapter 1</h2>
           <input
             type="text"

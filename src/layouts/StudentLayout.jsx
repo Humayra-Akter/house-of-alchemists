@@ -11,45 +11,57 @@ import {
   Bars3Icon,
   XMarkIcon,
   AcademicCapIcon,
+  ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 
-const menu = [
-  { name: "Dashboard", path: "/student/studentDashboard", icon: HomeIcon },
-  { name: "Content", path: "/student/content", icon: BookOpenIcon },
-  { name: "Exams", path: "/student/exams", icon: ClipboardDocumentListIcon },
-  { name: "Blogs", path: "/student/blogs", icon: ChatBubbleLeftRightIcon },
-  { name: "Results", path: "/student/results", icon: TrophyIcon },
-  { name: "Profile", path: "/student/profile", icon: UserCircleIcon },
-  { name: "About", path: "/student/about", icon: InformationCircleIcon },
+const MENU = [
+  { name: "Dashboard", path: "/student/studentDashboard", Icon: HomeIcon },
+  { name: "Content", path: "/student/content", Icon: BookOpenIcon },
+  { name: "Exams", path: "/student/exams", Icon: ClipboardDocumentListIcon },
+  { name: "Blogs", path: "/student/blogs", Icon: ChatBubbleLeftRightIcon },
+  { name: "Results", path: "/student/results", Icon: TrophyIcon },
+  { name: "Profile", path: "/student/profile", Icon: UserCircleIcon },
+  { name: "About", path: "/student/about", Icon: InformationCircleIcon },
 ];
 
 export default function StudentLayout({ children }) {
   const location = useLocation();
-  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  // mock (swap with auth later)
+  const [open, setOpen] = useState(false);
+
+  // mock student (swap with auth later)
   const student = { name: "Nusrat", klass: "SSC" };
 
-  const NavLink = ({ item }) => {
-    const Icon = item.icon;
-    const active =
-      location.pathname === item.path ||
-      location.pathname.startsWith(item.path + "/");
+  const isActive = (path) =>
+    location.pathname === path || location.pathname.startsWith(path + "/");
+
+  const NavItem = ({ name, path, Icon }) => {
+    const active = isActive(path);
     return (
       <Link
-        to={item.path}
+        to={path}
         onClick={() => setOpen(false)}
-        className={`flex items-center gap-3 px-4 py-2 rounded-lg text-sm font-medium transition
+        aria-current={active ? "page" : undefined}
+        className={`group flex items-center gap-3 px-4 py-2 rounded-lg text-sm font-medium outline-none transition
           ${
             active
               ? "bg-primary/10 text-primary"
-              : "text-gray-700 hover:bg-gray-100 hover:text-primary"
+              : "text-gray-700 hover:bg-gray-100 hover:text-primary focus-visible:ring-2 focus-visible:ring-primary/30"
           }`}
       >
-        <Icon className="w-5 h-5" />
-        {item.name}
+        <Icon
+          className={`w-5 h-5 ${
+            active ? "text-primary" : "text-gray-500 group-hover:text-primary"
+          }`}
+        />
+        <span className="truncate">{name}</span>
       </Link>
     );
+  };
+
+  const handleLogout = () => {
+    localStorage.clear(); // clear auth-related keys
+    navigate("/", { replace: true }); // go to login
   };
 
   return (
@@ -71,21 +83,19 @@ export default function StudentLayout({ children }) {
           </div>
 
           <nav className="flex flex-col gap-2">
-            {menu.map((item) => (
-              <NavLink key={item.path} item={item} />
+            {MENU.map((m) => (
+              <NavItem key={m.path} {...m} />
             ))}
           </nav>
         </div>
 
         <div className="mt-auto p-4 border-t">
           <button
-            className="w-full text-left text-xs text-gray-600 hover:text-primary"
-            onClick={() => {
-              localStorage.removeItem("hoa_role");
-              navigate("/");
-            }}
+            onClick={handleLogout}
+            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 hover:text-red-600 focus-visible:ring-2 focus-visible:ring-primary/30"
           >
-            Switch role →
+            <ArrowRightOnRectangleIcon className="w-5 h-5" />
+            Logout
           </button>
         </div>
       </aside>
@@ -93,8 +103,9 @@ export default function StudentLayout({ children }) {
       {/* Mobile header */}
       <div className="md:hidden fixed inset-x-0 top-0 h-14 bg-white border-b border-gray-200 z-40 flex items-center justify-between px-4">
         <button
-          className="p-2 rounded-lg hover:bg-gray-100"
+          className="p-2 rounded-lg hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-primary/30"
           onClick={() => setOpen(true)}
+          aria-label="Open menu"
         >
           <Bars3Icon className="w-6 h-6" />
         </button>
@@ -118,8 +129,9 @@ export default function StudentLayout({ children }) {
                 <span className="font-extrabold">HoA</span>
               </div>
               <button
-                className="p-2 rounded-lg hover:bg-gray-100"
+                className="p-2 rounded-lg hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-primary/30"
                 onClick={() => setOpen(false)}
+                aria-label="Close menu"
               >
                 <XMarkIcon className="w-5 h-5" />
               </button>
@@ -133,20 +145,18 @@ export default function StudentLayout({ children }) {
             </div>
 
             <nav className="flex flex-col gap-2">
-              {menu.map((item) => (
-                <NavLink key={item.path} item={item} />
+              {MENU.map((m) => (
+                <NavItem key={m.path} {...m} />
               ))}
             </nav>
 
-            <div className="mt-auto pt-4">
+            <div className="mt-auto pt-4 border-t">
               <button
-                className="w-full text-left text-xs text-gray-600 hover:text-primary"
-                onClick={() => {
-                  localStorage.removeItem("hoa_role");
-                  window.location.href = "/";
-                }}
+                onClick={handleLogout}
+                className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 hover:text-red-600 focus-visible:ring-2 focus-visible:ring-primary/30"
               >
-                Switch role →
+                <ArrowRightOnRectangleIcon className="w-5 h-5" />
+                Logout
               </button>
             </div>
           </div>

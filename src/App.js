@@ -18,12 +18,16 @@ import StudentBlogs from "./pages/student/StudentBlogs";
 import StudentResults from "./pages/student/StudentResults";
 import StudentProfile from "./pages/student/StudentProfile";
 import StudentAbout from "./pages/student/StudentAbout";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Entry />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         {/* Admin Pages */}
         <Route path="/admin/adminDashboard" element={<AdminDashboard />} />
         <Route path="/admin/resources" element={<Resources />} />
