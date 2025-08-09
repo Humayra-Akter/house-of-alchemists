@@ -4,10 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#391809", // brown
-        secondary:"#774723", //rust
-        accent: "#b99268",//black
-        background: "#fbf5e9", //cream white
+        primary: "#2563EB", // Scientific blue (main brand & actions)
+        secondary: "#06B6D4", // Cyan accent (chemistry / water element feel)
+        accent: "#10B981", // Emerald green (success / freshness)
+        background: "#F9FAFB", // Very light gray (modern app background)
       },
     },
   },

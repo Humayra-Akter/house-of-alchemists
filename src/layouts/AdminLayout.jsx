@@ -10,7 +10,7 @@ import {
 const menu = [
   {
     name: "Dashboard",
-    path: "/admin/dashboard",
+    path: "/admin/adminDashboard",
     icon: <HomeIcon className="w-5 h-5" />,
   },
   {
@@ -46,7 +46,6 @@ export default function AdminLayout({ children }) {
         <div className="p-5 font-extrabold text-xl text-indigo-700 border-b border-gray-200 flex items-center gap-2">
           🧪 Alchemists Admin
         </div>
-
         <nav className="flex flex-col p-4 gap-2">
           {menu.map((item) => {
             const isActive = location.pathname === item.path;
@@ -67,6 +66,16 @@ export default function AdminLayout({ children }) {
             );
           })}
         </nav>
+        {/* somewhere in header area */}
+        <button
+          className="text-xs text-gray-600 hover:text-primary"
+          onClick={() => {
+            localStorage.removeItem("hoa_role");
+            window.location.href = "/";
+          }}
+        >
+          Switch role
+        </button>
       </aside>
 
       {/* Main content */}
