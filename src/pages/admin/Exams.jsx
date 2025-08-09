@@ -8,7 +8,7 @@ export default function Exams() {
       title: "SSC 1st Paper - Chapter 5 Quiz",
       duration: 30,
       chapter: "Chapter 5",
-      status: "draft", // or 'published'
+      status: "draft",
       tags: ["Organic", "Model Test"],
       difficulty: "Medium",
       startTime: "2025-08-10T10:00",
@@ -20,17 +20,15 @@ export default function Exams() {
       ],
     },
   ]);
-  const navigate = useNavigate();
-
   const [search, setSearch] = useState("");
   const [selectedExam, setSelectedExam] = useState(null);
   const [questionStep, setQuestionStep] = useState(0);
   const [questionData, setQuestionData] = useState({
-    type: "mcq", // New: type field added
+    type: "mcq",
     text: "",
     options: ["", "", "", ""],
     correctAnswer: "",
-    correctAnswers: [], // for checkbox
+    correctAnswers: [],
     explanation: "",
   });
 
@@ -110,31 +108,12 @@ export default function Exams() {
     };
   };
 
-  const exportCSV = (results, title) => {
-    if (!results.length) return;
-
-    const headers = "Student,Score,TimeSpent (min)";
-    const rows = results.map(
-      (r) => `${r.student},${r.score},${r.timeSpent || "-"}`
-    );
-    const csv = [headers, ...rows]?.join("\n");
-
-    const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${title.replace(/\s+/g, "_")}_results.csv`;
-    link.click();
-    URL.revokeObjectURL(url);
-  };
-
   return (
     <AdminLayout>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-        <h1 className="text-2xl font-bold text-indigo-700">📘 Manage Exams</h1>
+        <h1 className="text-2xl font-bold text-primary">📘 Manage Exams</h1>
         <button
-          className="bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700 transition"
+          className="bg-primary text-white px-4 py-2 rounded shadow hover:bg-secondary transition"
           onClick={() => setShowModal(true)}
         >
           + Create New Exam
@@ -144,7 +123,7 @@ export default function Exams() {
       <input
         type="text"
         placeholder="🔍 Search exams by title..."
-        className="w-full p-2 border rounded mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        className="w-full p-2 border rounded mb-4 focus:outline-none focus:ring-2 focus:ring-accent"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
@@ -154,14 +133,14 @@ export default function Exams() {
         {filteredExams.map((exam, index) => (
           <div
             key={index}
-            className="p-5 bg-white rounded-lg shadow hover:shadow-lg transition-all border border-gray-200"
+            className="p-5 bg-background rounded-lg shadow hover:shadow-lg transition-all border border-gray-200"
           >
             <div className="flex items-center flex-wrap gap-2 text-xs mb-2">
               <span
                 className={`px-2 py-0.5 rounded-full font-medium ${
                   exam.status === "published"
-                    ? "bg-green-100 text-green-700"
-                    : "bg-yellow-100 text-yellow-800"
+                    ? "bg-green-100 border text-green-700"
+                    : "bg-yellow-100 border text-yellow-800"
                 }`}
               >
                 {exam.status}
@@ -172,8 +151,8 @@ export default function Exams() {
                   exam.difficulty === "Easy"
                     ? "bg-blue-100 text-blue-700"
                     : exam.difficulty === "Medium"
-                    ? "bg-yellow-100 text-yellow-700"
-                    : "bg-red-100 text-red-700"
+                    ? "bg-yellow-100 border text-yellow-700"
+                    : "bg-red-100 border text-red-700"
                 }`}
               >
                 {exam.difficulty}
@@ -182,7 +161,7 @@ export default function Exams() {
               {exam.tags?.map((tag, i) => (
                 <span
                   key={i}
-                  className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full"
+                  className="bg-gray-100 border text-gray-700 px-2 py-0.5 rounded-full"
                 >
                   #{tag}
                 </span>
@@ -196,7 +175,7 @@ export default function Exams() {
             {exam.startTime && exam.endTime && (
               <p className="text-sm">
                 <span
-                  className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold ${
+                  className={`inline-block border px-2 py-0.5 rounded-full text-xs font-semibold ${
                     getExamStatusLabel(exam.startTime, exam.endTime).color
                   }`}
                 >
@@ -211,12 +190,6 @@ export default function Exams() {
                 onClick={() => alert("Edit feature coming soon!")}
               >
                 ✏️ Edit
-              </button>
-              <button
-                className="text-sm text-gray-600 hover:underline"
-                onClick={() => navigate(`/admin/exams/preview/${index}`)}
-              >
-                👀 Preview
               </button>
 
               <button
@@ -264,9 +237,8 @@ export default function Exams() {
             </div>
 
             {/* Divider */}
-            <hr className="my-3" />
-
-            <div>
+            {/*<hr className="my-3" />
+             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-1">
                 🏆 Leaderboard
               </h3>
@@ -313,7 +285,7 @@ export default function Exams() {
               ) : (
                 <p className="text-sm text-gray-500">No results yet.</p>
               )}
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
@@ -322,7 +294,9 @@ export default function Exams() {
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-md w-[500px] transform transition-all scale-100">
-            <h2 className="text-xl font-bold mb-4">Create New Exam</h2>
+            <h2 className="text-xl text-center text-primary font-bold mb-4">
+              Create New Exam
+            </h2>
 
             <input
               type="text"
@@ -388,13 +362,13 @@ export default function Exams() {
 
             <div className="flex justify-end gap-2">
               <button
-                className="text-gray-600 hover:underline"
+                className="text-red-700 hover:underline"
                 onClick={() => setShowModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="bg-indigo-600 text-white px-4 py-2 rounded"
+                className="bg-primary hover:bg-secondary text-white px-4 py-2 rounded"
                 onClick={handleAddExam}
               >
                 Add Exam
