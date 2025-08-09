@@ -13,8 +13,11 @@ import QuestionsModeration from "./pages/admin/QuestionsModeration";
 import Students from "./pages/admin/Students";
 import Entry from "./pages/Entry";
 import Content from "./pages/student/Content";
-import TakeExam from "./pages/student/TakeExam";
 import StudentExams from "./pages/student/StudentExams";
+import StudentBlogs from "./pages/student/StudentBlogs";
+import StudentResults from "./pages/student/StudentResults";
+import StudentProfile from "./pages/student/StudentProfile";
+import StudentAbout from "./pages/student/StudentAbout";
 
 function App() {
   return (
@@ -34,6 +37,10 @@ function App() {
         />{" "}
         <Route path="/student/content" element={<Content />} />
         <Route path="/student/exams" element={<StudentExams />} />
+        <Route path="/student/blogs" element={<StudentBlogs />} />
+        <Route path="/student/results" element={<StudentResults />} />
+        <Route path="/student/profile" element={<StudentProfile />} />
+        <Route path="/student/about" element={<StudentAbout />} />
         {/* Default redirect */}
         {/* <Route path="*" element={<Navigate to="/admin/adminDashboard" />} /> */}
       </Routes>
